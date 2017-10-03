@@ -1,0 +1,222 @@
+<?xml version="1.0"?>
+<CodeConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Elements>
+    <Element Type="Using" Id="DefaultUsing">
+      <Elements />
+      <Group By="Type" Direction="Ascending" SeparatorType="NewLine">
+        <Group AttributeCapture="^(.*?)(\.|$)" By="Name" Direction="Ascending" SeparatorType="NewLine" />
+      </Group>
+      <Sort By="Name" />
+    </Element>
+    <ElementRef Id="DefaultInterface">
+      <Elements />
+      <Elements />
+    </ElementRef>
+    <ElementRef Id="DefaultType">
+      <Elements />
+      <Elements />
+    </ElementRef>
+    <Element Type="Namespace">
+      <Elements>
+        <ElementRef Id="DefaultUsing">
+          <Elements />
+          <Elements />
+        </ElementRef>
+        <Region Name="Enumerations">
+          <Elements>
+            <Element Type="Type">
+              <Elements />
+              <Filter Condition="$(Type) == 'Enum'" />
+              <Sort By="Name" />
+            </Element>
+          </Elements>
+        </Region>
+        <Region Name="Delegates">
+          <Elements>
+            <Element Type="Delegate">
+              <Elements />
+              <Sort By="Name" />
+            </Element>
+          </Elements>
+        </Region>
+        <Element Type="Type" Id="DefaultInterface">
+          <Elements>
+            <Region Name="Properties">
+              <Elements>
+                <Element Type="Property">
+                  <Elements />
+                  <Sort By="Name" />
+                </Element>
+              </Elements>
+            </Region>
+            <Region Name="Methods">
+              <Elements>
+                <Element Type="Method">
+                  <Elements />
+                  <Sort By="Name" />
+                </Element>
+              </Elements>
+            </Region>
+            <Region Name="Events">
+              <Elements>
+                <Element Type="Event">
+                  <Elements />
+                  <Sort By="Name" />
+                </Element>
+              </Elements>
+            </Region>
+          </Elements>
+          <Filter Condition="$(Type) == 'Interface'" />
+          <Sort By="Access">
+            <Sort By="Name" />
+          </Sort>
+        </Element>
+        <Element Type="Type" Id="DefaultType">
+          <Elements>
+            <Region Name="Constants">
+              <Elements>
+                <Element Type="Field">
+                  <Elements />
+                  <Filter Condition="$(Modifier) : 'Constant'" />
+                  <Sort By="Name" />
+                </Element>
+              </Elements>
+            </Region>
+            <Region Name="Fields">
+              <Elements>
+                <Element Type="Field">
+                  <Elements />
+                  <Filter Condition="$(Modifier) : 'Static'" />
+                </Element>
+                <Element Type="Field">
+                  <Elements />
+                  <Group By="Access" SeparatorType="NewLine" />
+                  <Sort By="Name" />
+                </Element>
+              </Elements>
+            </Region>
+            <Region Name="Events">
+              <Elements>
+                <Element Type="Event">
+                  <Elements />
+                  <Sort By="Name" />
+                </Element>
+              </Elements>
+            </Region>
+            <Region Name="Constructors &amp; Destructors">
+              <Elements>
+                <Element Type="Constructor">
+                  <Elements />
+                  <Sort By="Modifier" Direction="Descending">
+                    <Sort By="Access" />
+                  </Sort>
+                </Element>
+              </Elements>
+            </Region>
+            <Region Name="Enumerations">
+              <Elements>
+                <Element Type="Type">
+                  <Elements />
+                  <Filter Condition="$(Type) == 'Enum'" />
+                  <Sort By="Access">
+                    <Sort By="Name" />
+                  </Sort>
+                </Element>
+              </Elements>
+            </Region>
+            <Region Name="Delegates">
+              <Elements>
+                <Element Type="Delegate">
+                  <Elements />
+                  <Sort By="Access">
+                    <Sort By="Name" />
+                  </Sort>
+                </Element>
+              </Elements>
+            </Region>
+            <Region Name="Public Properties">
+              <Elements>
+                <Element Type="Property">
+                  <Elements />
+                  <Filter Condition="$(Access) == 'Public'" />
+                  <Sort By="Modifier" Direction="Descending">
+                    <Sort By="Name" />
+                  </Sort>
+                </Element>
+              </Elements>
+            </Region>
+            <Region Name="Properties">
+              <Elements>
+                <Element Type="Property">
+                  <Elements />
+                  <Filter Condition="$(Access) != 'Public'" />
+                  <Sort By="Modifier" Direction="Descending">
+                    <Sort By="Access">
+                      <Sort By="Name" />
+                    </Sort>
+                  </Sort>
+                </Element>
+              </Elements>
+            </Region>
+            <Region Name="Public Methods">
+              <Elements>
+                <Element Type="Method">
+                  <Elements />
+                  <Filter Condition="$(Access) == 'Public'" />
+                  <Sort By="Modifier" Direction="Descending">
+                    <Sort By="Name" />
+                  </Sort>
+                </Element>
+              </Elements>
+            </Region>
+            <Region Name="Methods">
+              <Elements>
+                <Element Type="Method">
+                  <Elements />
+                  <Filter Condition="$(Access) != 'Public'" />
+                  <Sort By="Modifier" Direction="Descending">
+                    <Sort By="Access">
+                      <Sort By="Name" />
+                    </Sort>
+                  </Sort>
+                </Element>
+              </Elements>
+            </Region>
+          </Elements>
+          <Sort By="Access">
+            <Sort By="Name" />
+          </Sort>
+        </Element>
+      </Elements>
+      <Sort By="Name" />
+    </Element>
+  </Elements>
+  <Encoding CodePage="65001" />
+  <Formatting>
+    <ClosingComments Enabled="false" Format="End $(ElementType) $(Name)" />
+    <LineSpacing RemoveConsecutiveBlankLines="true" />
+    <Regions CommentDirectiveBeginFormat="$(Begin) {0}" CommentDirectiveBeginPattern="^\s?\$\(\s?Region\.Begin\s?\)\s?(?&lt;Name&gt;.*)$" CommentDirectiveEndFormat="$(End) {0}" CommentDirectiveEndPattern="^\s?\$\(\s?Region\.End\s?\)\s?(?&lt;Name&gt;.*)?$" EndRegionNameEnabled="false" Style="Default" />
+    <Tabs SpacesPerTab="4" Style="Spaces" />
+    <Usings MoveTo="Namespace" />
+  </Formatting>
+  <Handlers>
+    <ProjectHandler Parser="NArrange.Core.MSBuildProjectParser">
+      <ProjectExtensions>
+        <Extension Name="csproj" />
+        <Extension Name="vbproj" />
+      </ProjectExtensions>
+    </ProjectHandler>
+    <SourceHandler Assembly="NArrange.CSharp, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null" Language="CSharp">
+      <ProjectExtensions />
+      <SourceExtensions>
+        <Extension Name="cs" />
+      </SourceExtensions>
+    </SourceHandler>
+    <SourceHandler Assembly="NArrange.VisualBasic, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null" Language="VisualBasic">
+      <ProjectExtensions />
+      <SourceExtensions>
+        <Extension Name="vb" />
+      </SourceExtensions>
+    </SourceHandler>
+  </Handlers>
+</CodeConfiguration>
